@@ -55,7 +55,7 @@
 // student1.setMarks = 85;
 // console.log(student1.getMarks);
 
-class Vehicle{
+export class Vehicle{
     static v1= 10
     constructor(noWheels,heigth,width){
         this.noWheels=noWheels;
@@ -72,7 +72,7 @@ class Vehicle{
 }
 
 
-class Car extends Vehicle{
+export class Car extends Vehicle{
     static v1 =20
     constructor(noWheels,heigth,width,brand,passengerNo){
         super(noWheels,heigth,width);
@@ -98,11 +98,17 @@ class truck extends Vehicle{
 }
 
 
-let i10 = new Car(4,1000,1300,'hyundai',5);
-// console.log(i10);
-// console.log(Car.v1);
-// console.log(Vehicle.v1);
-// console.log(truck.v1);
-Vehicle.statDisplay();
-Car.statDisplay();
-//i10.display();
+// let i10 = new Car(4,1000,1300,'hyundai',5);
+// // console.log(i10);
+// // console.log(Car.v1);
+// // console.log(Vehicle.v1);
+// // console.log(truck.v1);
+// Vehicle.statDisplay();
+// Car.statDisplay();
+// //i10.display();
+export default function toBeExport(){
+    console.log('This function is in the Classes.js file.');
+}
+
+let val1 =10
+//module.exports={Vehicle,Car,toBeExport,val1} // CommonJs

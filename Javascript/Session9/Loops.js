@@ -63,3 +63,4 @@ while(n<20){
 }
 
 let n = 123456 --- 654321
+// you should not be using strings -- type that you would using is number

@@ -37,6 +37,12 @@ function fourth(){
 // });
 // End();
 
-start(()=>{
-    end()
-});
+
+function fun1(fun2){
+    console.log("fun1 getting executed");
+    fun2();
+}
+
+function second(){
+    console.log('Second Function getting called.');
+}

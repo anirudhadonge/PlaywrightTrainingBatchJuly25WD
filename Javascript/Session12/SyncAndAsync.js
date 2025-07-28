@@ -28,13 +28,13 @@ function fourth(){
 }
 
 //Call Back hell
-// start(()=>{
-//     end(()=>{
-//         third(()=>{
-//             fourth()
-//         })
-//     })
-// });
+start(()=>{
+    end(()=>{
+        third(()=>{
+            fourth()
+        })
+    })
+});
 // End();
 
 
@@ -46,3 +46,6 @@ function fun1(fun2){
 function second(){
     console.log('Second Function getting called.');
 }
+
+//"fun1 getting executed"
+//'Second Function getting called.'

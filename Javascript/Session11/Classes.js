@@ -98,14 +98,14 @@ class truck extends Vehicle{
 }
 
 
-// let i10 = new Car(4,1000,1300,'hyundai',5);
-// // console.log(i10);
-// // console.log(Car.v1);
-// // console.log(Vehicle.v1);
-// // console.log(truck.v1);
-// Vehicle.statDisplay();
-// Car.statDisplay();
-// //i10.display();
+let i10 = new Car(4,1000,1300,'hyundai',5);
+// console.log(i10);
+// console.log(Car.v1);
+// console.log(Vehicle.v1);
+// console.log(truck.v1);
+Vehicle.statDisplay();
+Car.statDisplay();
+//i10.display();
 export default function toBeExport(){
     console.log('This function is in the Classes.js file.');
 }

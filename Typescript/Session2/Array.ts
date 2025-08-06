@@ -14,5 +14,5 @@
 
 // console.log(fruits);
 
-let fruits:[number,string,boolean]=[7,'str',true]
+//let fruits:[number,string,boolean]=['string',false,7]
 

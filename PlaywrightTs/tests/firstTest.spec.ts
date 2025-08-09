@@ -17,7 +17,7 @@
  * getByTestId()
  * locator() : input would be a xpath or css locator. #<ValueID>
  */
-import {test ,expect} from "@playwright/test";
+import {test ,expect, Page} from "@playwright/test";
 
 
 // test('Validate Installation text',async ({page})=>{
@@ -76,6 +76,68 @@ test("Dropdown example",async({page})=>{
 })
 
 
-test.only("Fill and presssequentially example",async({page})=>{
+test("Fill and presssequentially example",async({page})=>{
+  await page.goto("https://the-internet.herokuapp.com");
+  await page.getByRole('link',{name:"Form Authentication"}).click();
+  await page.getByLabel("Username").pressSequentially("tomsmith",{delay:500});
+  await page.getByLabel("Password").fill("SuperSecretPassword!");
+  await page.getByRole("button").click();
+})
+
+/*
+Check()-- It clicks on the checkbox --- it first checks that is required to perform the click action 
+Uncheck()
+*/
+test('check and uncheck example',async({page})=>{
   
+  await page.goto("https://the-internet.herokuapp.com");
+  await page.getByRole('link',{name:"Checkboxes"}).click();
+  await page.locator("#checkboxes input").nth(0).click();
+  await page.locator("#checkboxes input").nth(0).click();
+  // await page.getByRole('checkbox').nth(0file-submit).check();
+  // await page.getByRole('checkbox').nth(1).uncheck();
+})
+
+
+test('upload file example for Input tag',async({page})=>{
+  //input tag then you use setInputFiles method
+  await page.goto("https://the-internet.herokuapp.com");
+  await page.getByRole('link',{name:"File Upload"}).click();
+  await page.locator("#file-upload").setInputFiles(["./uploadfiles/Playwright_fill_vs_pressSequentially.pdf"])
+  await page.locator("#file-submit").click();
+})
+
+test("update file with other html element",async({page})=>{
+  await page.goto("https://the-internet.herokuapp.com");
+  await page.getByRole('link',{name:"File Upload"}).click();
+  await fileUpload(page,"#file-upload", "./uploadfiles/Playwright_fill_vs_pressSequentially.pdf");
+  // const fileChooser = page.waitForEvent('filechooser');
+  // await page.locator("#file-upload").click();
+  // const fileChoose = await fileChooser;
+  // await fileChoose.setFiles("./uploadfiles/Playwright_fill_vs_pressSequentially.pdf");
+})
+
+async function fileUpload(page:Page , locator:string,filePath:string):Promise<void>{
+  const fileChooser = page.waitForEvent('filechooser');
+  await page.locator(locator).click();
+  const fileChoose = await fileChooser;
+  await fileChoose.setFiles(filePath);
+}
+
+
+test("Single Frames example",async({page})=>{
+  await page.goto("https://the-internet.herokuapp.com");
+  await page.locator('[href="/frames"]').click();
+  await page.locator('[href="/iframe"]').click();
+  const frameLocator = await page.frameLocator("#mce_0_ifr");
+  await expect(frameLocator.locator("#tinymce")).toBeVisible();
+})
+
+test.only("nested Frames example",async({page})=>{
+  await page.goto("https://the-internet.herokuapp.com");
+  await page.locator('[href="/frames"]').click();
+  await page.locator('[href="/nested_frames"]').click();
+ const topFrame = page.frameLocator('[name="frame-top"]');
+ const rightFrame = topFrame.frameLocator('[name="frame-right"]');
+ await expect(rightFrame.locator('body')).toBeVisible();
 })

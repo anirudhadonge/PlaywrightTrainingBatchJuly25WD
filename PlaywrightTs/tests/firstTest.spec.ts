@@ -134,7 +134,7 @@ async function fileUpload(
   await fileChoose.setFiles(filePath);
 }
 
-test("Single Frames example", async ({ page }) => {
+test("@smoke Single Frames example", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com");
   await page.locator('[href="/frames"]').click();
   await page.locator('[href="/iframe"]').click();
@@ -142,7 +142,7 @@ test("Single Frames example", async ({ page }) => {
   await expect(frameLocator.locator("#tinymce")).toBeVisible();
 });
 
-test("nested Frames example", async ({ page }) => {
+test("@smoke nested Frames example", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com");
   await page.locator('[href="/frames"]').click();
   await page.locator('[href="/nested_frames"]').click();
@@ -161,7 +161,7 @@ test("Download file example", async ({ page }) => {
   // await download.saveAs("./Downloads/"+download.suggestedFilename());
 });
 
-test("Alert js popup example", async ({ page }) => {
+test("@regression Alert js popup example", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com");
   await page.locator('[href="/javascript_alerts"]').click();
   await handleAlert(page, '[onclick="jsAlert()"]');
@@ -176,7 +176,7 @@ test("Alert js popup example", async ({ page }) => {
   );
 });
 
-test("Confirm js accept popup example", async ({ page }) => {
+test("@regression Confirm js accept popup example", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com");
   await page.locator('[href="/javascript_alerts"]').click();
   await handleAlert(page, '[onclick="jsConfirm()"]');
@@ -189,7 +189,7 @@ test("Confirm js accept popup example", async ({ page }) => {
   await expect(page.locator("#result")).toHaveText("You clicked: Ok");
 });
 
-test("Confirm js dismiss popup example", async ({ page }) => {
+test("@smoke,@regression Confirm js dismiss popup example", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com");
   await page.locator('[href="/javascript_alerts"]').click();
   await dismissConfirmPopup(page, '[onclick="jsConfirm()"]');
@@ -215,7 +215,9 @@ test("Prompt js accept popup example", async ({ page }) => {
   await expect(page.locator("#result")).toHaveText("You entered: xyz");
 });
 
-test("Page using browser object", async () => {
+test("Page using browser object",{
+  tag:"@p1"
+}, async () => {
   const browser = await chromium.launch({ headless: false });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -248,25 +250,6 @@ test("Authentication Popup handled by Playwright config", async ({ page }) => {
     "Congratulations! You must have the proper credentials."
   );
 });
-test.describe.only("Authentication Tests",async()=>{
-test.beforeAll('This is before all method for Authenticationtest',async()=>{
-  console.log('This is before all method for Authenticationtest')
-})
-test("Authentication Popup handled at Test Level", async ({ browser }) => {
-  const context = await browser.newContext({
-    httpCredentials: {
-      username: "admin",
-      password: "admin",
-    },
-  });
-  const page = await context.newPage();
-  await page.goto("https://the-internet.herokuapp.com");
-  await page.locator('[href="/digest_auth"]').click();
-  await expect(page.locator(".example p")).toContainText(
-    "Congratulations! You must have the proper credentials."
-  );
-});
-})
 
 
 test("Drag and Drop", async ({ page }) => {
@@ -277,48 +260,6 @@ test("Drag and Drop", async ({ page }) => {
   await expect(page.locator("#column-a")).toHaveText('B');
 });
 
-test.describe.only('These test are of Hover with waits and assertions',async()=>{
-  test.beforeAll('This is before all method for Hover',async()=>{
-  console.log('This is before all method for Hover')
-})
-  test("Hovers Test", async ({ page }) => {
-  await page.goto("https://the-internet.herokuapp.com");
-  await page.locator('[href="/hovers"]').click();
-  await page.getByAltText('User Avatar').nth(0).hover()
-  await expect(page.locator(".figcaption h5").nth(0)).toHaveText("name: user1");
-  const text = await page.locator(".example p").textContent();
-  console.log(text);
-});
 
-test("Hovers Test with waitsforTimeout", async ({ page }) => {
-  await page.goto("https://the-internet.herokuapp.com");
-  const locator = page.locator('[href="/hovers"]');
-  //await locator.waitFor({state:'attached',timeout:3000});
-  await page.waitForLoadState()
-  await locator.click();
-  await page.getByAltText('User Avatar').nth(0).hover()
-  await expect(page.locator(".figcaption h5").nth(0)).toHaveText("name: user1");
-  const text = await page.locator(".example p").textContent();
-  expect(text).toBe("Hover over the image for additional information");
-});
-
-
-test("Hover with Locator assertions", async ({ page }) => {
-  await page.goto("https://the-internet.herokuapp.com");
-  const locator = page.locator('[href="/hovers"]');
-  //await locator.waitFor({state:'attached',timeout:3000});
-  await page.waitForLoadState()
-  await locator.click();
-  await page.getByAltText('User Avatar').nth(0).hover()
-  const captionLocator = page.locator(".figcaption h5").nth(0);
-  await expect.soft(captionLocator).toBeVisible();
-  await expect.soft(captionLocator).toHaveText("name: user1"); // Locator Assertions
-  const text = await page.locator(".example p").textContent();
-  expect.soft(text).toBe("Hover over the image for additional information"); // General Assertion
-  await expect.soft(page).toHaveTitle('The Internet');
-  await expect.soft(page).toHaveURL('https://the-internet.herokuapp.com/hovers');
-  console.log(page.url());
-});
-})
 
 

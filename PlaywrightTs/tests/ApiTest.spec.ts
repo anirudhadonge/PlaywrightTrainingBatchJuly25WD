@@ -17,6 +17,7 @@
 
 import test, { expect } from "@playwright/test";
 
+const apiToken = "";
 test("My first API test", async ({ request }) => {
   const url = `https://automationexercise.com/api/productsList/${10}&${15}`;
   const response = await request.get(url, {
@@ -63,7 +64,7 @@ test("Create a new Project",async({request})=>{
   const response = await request.post('https://adonge2d0825.atlassian.net/rest/api/3/project',{
     headers: {
     'Authorization': `Basic ${Buffer.from(
-      'anirudha.donge@gmail.com:ATATT3xFfGF0Xo6KlAN_e4S9rqviV0I8_Nja9rmbyzbB83Mp4B8Q_MM3Osx_PVBqVfJraZaMO8UpEm1-4aeliwcHQ_7vg7vuSoe8QpZTn92sBz8ciROhacnH5ZQmVsqkH-NOfoOw5CdfR0KBKUTWWePlFub4Kxf9P67xY8nEWoC7J6PW0Obxhu0=26B880AD'
+      'anirudha.donge@gmail.com:'+apiToken+''
     ).toString('base64')}`,
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -80,7 +81,7 @@ test("Get All Project",async({request})=>{
   const response = await request.get('https://adonge2d0825.atlassian.net/rest/api/3/project',{
     headers: {
     'Authorization': `Basic ${Buffer.from(
-      'anirudha.donge@gmail.com:ATATT3xFfGF0Xo6KlAN_e4S9rqviV0I8_Nja9rmbyzbB83Mp4B8Q_MM3Osx_PVBqVfJraZaMO8UpEm1-4aeliwcHQ_7vg7vuSoe8QpZTn92sBz8ciROhacnH5ZQmVsqkH-NOfoOw5CdfR0KBKUTWWePlFub4Kxf9P67xY8nEWoC7J6PW0Obxhu0=26B880AD'
+      'anirudha.donge@gmail.com:'+apiToken+''
     ).toString('base64')}`,
     'Accept': 'application/json',
     'Content-Type': 'application/json'

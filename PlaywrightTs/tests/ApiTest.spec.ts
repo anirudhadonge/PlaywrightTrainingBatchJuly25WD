@@ -64,10 +64,10 @@ test("Create a new Project",async({request})=>{
   const response = await request.post('https://adonge2d0825.atlassian.net/rest/api/3/project',{
     headers: {
     'Authorization': `Basic ${Buffer.from(
-      'anirudha.donge@gmail.com:'+apiToken+''
+      'anirudha.donge@gmail.com:'
     ).toString('base64')}`,
     'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json'    
   },
   data:createProjectBody
   })
@@ -81,7 +81,7 @@ test("Get All Project",async({request})=>{
   const response = await request.get('https://adonge2d0825.atlassian.net/rest/api/3/project',{
     headers: {
     'Authorization': `Basic ${Buffer.from(
-      'anirudha.donge@gmail.com:'+apiToken+''
+      'anirudha.donge@gmail.com:'
     ).toString('base64')}`,
     'Accept': 'application/json',
     'Content-Type': 'application/json'

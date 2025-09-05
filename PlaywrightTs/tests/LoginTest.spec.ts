@@ -7,7 +7,7 @@ import loginData from "../TestData/loginData.json"
 let homepage: Homepage;
 let loginPage: LoginPage;
 
-test.only("Validate Login Action in the Application", async ({ page }) => {
+test("Validate Login Action in the Application", async ({ page }) => {
   console.log(loginData['value']);
   homepage = new Homepage(page);
   await homepage.gotoApplication(process.env.url);
